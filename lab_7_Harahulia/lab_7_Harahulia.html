@@ -289,7 +289,7 @@ grey image number of pixel: 927480</code></pre>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>image <span class="op">=</span> cv.imread(<span class="st">'orig_images/i_image.jpg'</span>)</span>
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>noised_image <span class="op">=</span> add_gaussian_noise(image)</span>
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>dst_Median <span class="op">=</span> cv.medianBlur(noised_image, <span class="dv">3</span>)</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>dst_Gauss <span class="op">=</span> cv.GaussianBlur(noised_image, (<span class="dv">5</span>, <span class="dv">5</span>), <span class="dv">2</span>)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>dst_Gauss <span class="op">=</span> cv.GaussianBlur(dst_Median, (<span class="dv">5</span>, <span class="dv">5</span>), <span class="dv">2</span>)</span>
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Побудова і вивід зображення у файл</span></span>
 <span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">131</span>)</span>
@@ -316,11 +316,11 @@ grey image number of pixel: 927480</code></pre>
 <section id="двосторонній-фільтр" class="level3">
 <h3 class="anchored" data-anchor-id="двосторонній-фільтр">2. <a href="https://docs.opencv.org/4.x/dc/dd3/tutorial_gausian_median_blur_bilateral_filter.html">Двосторонній фільтр</a></h3>
 <p><span class="math display">\[I^{filtered}(x)=\frac{1}{W_p}\sum\limits_{x_i\in\Omega}I(x_i)f_r(||I(x_i)-I(x)||)g_s(||x_i-x||)\]</span> де <span class="math inline">\(W_p\)</span> це: <span class="math display">\[W_p=\sum\limits_{x_i\in\Omega}f_r(||I(x_i)-I(x)||)g_s(||x_i-x||)\]</span> * <span class="math inline">\(I^{filtered}\)</span> це відфільтроване зображення * <span class="math inline">\(I\)</span> оригінальне зображення * <span class="math inline">\(x\)</span> координати поточного пікселя * <span class="math inline">\(\Omega\)</span> вікно відцентроване у <span class="math inline">\(x\)</span>, тому <span class="math inline">\(x_i\in\Omega\)</span> це інший піксель * <span class="math inline">\(f_r\)</span> це діапазон ядра для згладжування різниць в інтенсивностях * <span class="math inline">\(g_s\)</span> є просторовим ядром для згладжування різниць у координатах</p>
-<div id="cell-15" class="cell" data-execution_count="5">
+<div id="cell-15" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Реалізація низькочастотно фільтра на основі простого середнього ковзного з параметрами вікна 10 х 10 </span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> <span class="dv">15</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> <span class="dv">31</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>dst_bilateraled <span class="op">=</span> cv.bilateralFilter(noised_image, i, i <span class="op">*</span> <span class="dv">2</span>, i <span class="op">/</span> <span class="dv">2</span>)</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Побудова і вивід зображення у файл</span></span>
